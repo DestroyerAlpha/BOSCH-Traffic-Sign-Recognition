@@ -1,4 +1,4 @@
-#Running the project locally:
+## Running the project locally:
 
 1. Clone the `main` branch.
 2. Make a new branch from `main`
