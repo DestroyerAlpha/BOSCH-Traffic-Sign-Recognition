@@ -1,0 +1,32 @@
+.root {
+  min-height: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: #f4f6f8;
+}
+.productCard {
+  padding: 40px;
+  margin: 12px;
+}
+.productCard-Image {
+  object-fit: cover;
+  text-align: center;
+  text-indent: 10000px;
+}
+.productCard-Btn{
+  padding: 8px!important;
+    font-size: 12px!important;
+}
+.toolBar-Btn{
+  position:relative!important;
+  left:35%;
+  padding:13px 10px!important;
+  font-size: 15px!important;
+
+}
+
+.cardcont {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
