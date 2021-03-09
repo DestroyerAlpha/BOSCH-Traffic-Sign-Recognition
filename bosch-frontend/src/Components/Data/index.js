@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Toolbar from "./Toolbar";
 import "./Data.css";
 import ProductCard from "./ProductCard";
@@ -39,10 +39,11 @@ class Data extends Component {
           <Toolbar updateSearch={this.updateSearch} />
           <div className="cardcont">
             {
-              searchSign.map((gg) => (
+              searchSign.map((gg,i) => (
                 <ProductCard
                   className="productCard"
                   product={gg}
+                  key={i}
                 />
               ))}
           </div>

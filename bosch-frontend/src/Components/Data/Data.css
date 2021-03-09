@@ -5,7 +5,7 @@
   background-color: #f4f6f8;
 }
 .productCard {
-  padding: 40px;
+  padding: 20px;
   margin: 12px;
 }
 .productCard-Image {
@@ -28,5 +28,5 @@
 .cardcont {
   padding: 24px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill,minmax(320px,2fr));
 }
