@@ -16,7 +16,9 @@ import {
   ShoppingBag as ShoppingBagIcon,
   Users as UsersIcon,
   Eye as EyeIcon,
-  Settings as ModelIcon
+  Settings as ModelIcon,
+  Home as HomeIcon,
+  User as UserIcon
 } from "react-feather";
 import NavItem from "./NavItem";
 import Logo from "./images.png";
@@ -26,6 +28,11 @@ const user = {
 };
 
 const items = [
+  {
+    href: "/home",
+    icon: HomeIcon,
+    title: "Home",
+  },
   {
     href: "/data",
     icon: ShoppingBagIcon,
@@ -40,6 +47,11 @@ const items = [
     href: "/predict",
     icon: EyeIcon,
     title: "Predict",
+  },
+  {
+    href: "/team",
+    icon: UserIcon,
+    title: "Team",
   },
 ];
 
