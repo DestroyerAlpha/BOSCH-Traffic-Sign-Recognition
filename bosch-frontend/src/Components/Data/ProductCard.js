@@ -12,13 +12,13 @@ import {
   Button,
 } from "@material-ui/core";
 import ImageIcon from "@material-ui/icons/Image";
-
+import "./Data.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width:'270px',
-    margin:'auto'
+    width: '270px',
+    margin: 'auto'
   },
   statsItem: {
     alignItems: "center",
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   statsIcon: {
     marginRight: theme.spacing(1),
+    color: "#ea6a67"
   },
 }));
 
@@ -56,7 +57,7 @@ const ProductCard = ({ className, product, ...rest }) => {
       <Box p={2}>
         <Grid container justify="space-between" spacing={2}>
           <Grid className={classes.statsItem} item>
-            <ImageIcon className={classes.statsIcon} color="action" />
+            <ImageIcon className={classes.statsIcon} />
             <Typography
               color="textSecondary"
               display="inline"
@@ -68,7 +69,7 @@ const ProductCard = ({ className, product, ...rest }) => {
           </Grid>
           <Grid className={classes.statsItem} item>
             <Button
-              color="primary"
+
               variant="contained"
               className="productCard-Btn"
             >

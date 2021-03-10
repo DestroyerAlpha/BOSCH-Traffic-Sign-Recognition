@@ -1,0 +1,7 @@
+#F1F1F1 - light grey
+#202020 - almost black
+#7E909A - dark grey
+#1C4E80- blue shade 1
+#A5D8DD - blue shade 2
+#0091D5 - blue shade 3
+#EA6A47 - orange shade 1

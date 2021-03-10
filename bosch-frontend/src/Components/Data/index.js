@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container } from "@material-ui/core";
-import Toolbar from "./Toolbar";
+import Toolbars from "./Toolbars";
 import "./Data.css";
 import ProductCard from "./ProductCard";
 import dat from "./dat";
@@ -36,10 +36,10 @@ class Data extends Component {
     return (
       <div className="root">
         <Container maxWidth={false}>
-          <Toolbar updateSearch={this.updateSearch} />
+          <Toolbars updateSearch={this.updateSearch} />
           <div className="cardcont">
             {
-              searchSign.map((gg,i) => (
+              searchSign.map((gg, i) => (
                 <ProductCard
                   className="productCard"
                   product={gg}

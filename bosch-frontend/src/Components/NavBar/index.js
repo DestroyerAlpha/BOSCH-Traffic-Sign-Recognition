@@ -15,20 +15,17 @@ import {
   BarChart as BarChartIcon,
   ShoppingBag as ShoppingBagIcon,
   Users as UsersIcon,
+  Eye as EyeIcon,
+  Settings as ModelIcon
 } from "react-feather";
 import NavItem from "./NavItem";
-import Logo from "./Logo.png";
+import Logo from "./images.png";
 const user = {
   avatar: Logo,
-  name: "IIT Dharwad",
+  name: "Traffic Sign Recognition",
 };
 
 const items = [
-  {
-    href: "/dashboard",
-    icon: BarChartIcon,
-    title: "Dashboard",
-  },
   {
     href: "/data",
     icon: ShoppingBagIcon,
@@ -36,12 +33,12 @@ const items = [
   },
   {
     href: "/cook",
-    icon: UsersIcon,
+    icon: ModelIcon,
     title: "Cook Model",
   },
   {
     href: "/predict",
-    icon: ShoppingBagIcon,
+    icon: EyeIcon,
     title: "Predict",
   },
 ];
@@ -63,6 +60,8 @@ const useStyles = makeStyles(() => ({
   },
   name: {
     fontFamily: "Roboto Slab",
+    textAlign: "center"
+
   },
 }));
 
@@ -140,7 +139,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false,
 };
 

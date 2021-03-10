@@ -16,10 +16,11 @@
 .productCard-Btn{
   padding: 8px!important;
     font-size: 12px!important;
+    background: #1C4e80 !important;
+    color: #ffffff !important;
 }
 .toolBar-Btn{
   position:relative!important;
-  left:35%;
   padding:13px 10px!important;
   font-size: 15px!important;
 
@@ -28,5 +29,6 @@
 .cardcont {
   padding: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(320px,2fr));
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 40px;
 }
