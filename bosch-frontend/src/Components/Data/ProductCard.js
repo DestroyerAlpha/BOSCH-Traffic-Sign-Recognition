@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: '270px',
+    height: '290px',
     margin: 'auto'
   },
   statsItem: {
