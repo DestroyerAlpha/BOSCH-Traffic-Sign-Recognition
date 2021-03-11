@@ -22,7 +22,7 @@ class App extends Component {
             onMobileClose={() => this.setState({ mobileNav: false })}
             openMobile={this.state.mobileNav}
           />
-          <div className="root">
+          <div className="rootx">
             <div className="wrapper">
               <div className="contentContainer">
                 <div className="content">

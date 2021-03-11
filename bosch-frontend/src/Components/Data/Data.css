@@ -16,10 +16,11 @@
 .productCard-Btn{
   padding: 8px!important;
     font-size: 12px!important;
+    background: #1C4e80 !important;
+    color: #ffffff !important;
 }
 .toolBar-Btn{
   position:relative!important;
-  left:35%;
   padding:13px 10px!important;
   font-size: 15px!important;
 
@@ -28,5 +29,41 @@
 .cardcont {
   padding: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(320px,2fr));
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 40px;
+}
+.plus {
+  display:inline-block;
+  width:120px;
+  height:120px;
+  left: 60px;
+  right: 0;
+  margin: auto;
+  position: relative;
+  
+  background:
+    linear-gradient(#fff,#fff),
+    linear-gradient(#fff,#fff),
+    #ea6a47;
+  background-position:center;
+  background-size: 50% 10px,10px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}
+
+
+
+.alt {
+  background:
+    linear-gradient(#000,#000),
+    linear-gradient(#000,#000);
+  background-position:center;
+  background-size: 50% 10px,10px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}
+.radius {
+  border-radius:50%;
+}
+
+.swal2-popup{
+  left: 10% !important;
 }

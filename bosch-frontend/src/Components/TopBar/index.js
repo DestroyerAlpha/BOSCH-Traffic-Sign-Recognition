@@ -10,16 +10,17 @@ import {
   IconButton,
   Toolbar,
   makeStyles,
+  Typography
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 import Logo from "./interiit.png";
-
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: '#141415'
-},
+    backgroundColor: '#1c4e80'
+  },
   avatar: {
     width: 60,
     height: 60,
@@ -36,6 +37,9 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
         <Link to="/dashboard">
           <img src={Logo} alt="logo" widht="50" height="50"></img>
         </Link>
+        <Typography color="#ffffff" variant="h5">
+          Inter IIT Tech Meet 9.0
+        </Typography>
         <Box flexGrow={1} />
         <Hidden mdDown>
           <IconButton color="inherit">
@@ -48,7 +52,8 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
             </Badge>
           </IconButton>
           <IconButton color="inherit">
-            <InputIcon />
+            <a href="http://www.interiit-tech.org/events/traffic_sign_recognition" target="_blank" style={{ color: "#ffffff" }}>
+              <FileCopyIcon /></a>
           </IconButton>
         </Hidden>
         <Hidden lgUp>
@@ -57,7 +62,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
           </IconButton>
         </Hidden>
       </Toolbar>
-    </AppBar>
+    </AppBar >
   );
 };
 

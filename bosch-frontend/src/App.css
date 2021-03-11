@@ -2,12 +2,13 @@ html{
   font-family: 'Roboto', sans-serif;
 }
 
-.root {
+.rootx {
   display: flex;
   height: 100%;
   overflow: hidden;
   width: 100%;
-  background-color: #F4F6F8;
+  background-color: #f1f1f1;
+  min-height: 120vh;
 }
 .wrapper {
   display: flex;
