@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   statsItem: {
     alignItems: "center",
     display: "flex",
+    margin: 'auto'
   },
   statsIcon: {
     marginRight: theme.spacing(1),
@@ -31,56 +32,63 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = ({ className, product, ...rest }) => {
+const ProductCard = ({ className, product, idval, cardClick, ...rest }) => {
   const classes = useStyles();
 
   return (
-    <Card className={clsx(classes.root, className)} {...rest}>
-      <CardContent stylr={{ paddingBottom: '16px' }}>
-        <div style={{ textAlign: "center" }}>
-          <img
-            src={product.imageSrc}
-            className="productCard-Image"
-            alt="sampleImage"
-          />
-        </div>
-        <Typography
-          align="center"
-          color="textPrimary"
-          gutterBottom
-          variant="h4"
-        >
-          {product.title}
-        </Typography>
-      </CardContent>
-      <Box flexGrow={1} />
-      <Divider />
-      <Box p={2}>
-        <Grid container justify="space-between" spacing={2}>
-          <Grid className={classes.statsItem} item>
-            <ImageIcon className={classes.statsIcon} />
-            <Typography
-              color="textSecondary"
-              display="inline"
-              variant="body2"
-              style={{ fontSize: "12px" }}
-            >
-              {product.totalImages} Images
-            </Typography>
-          </Grid>
-          <Grid className={classes.statsItem} item>
-            <Button
+    <div className="card is-collapsed" id={"gg" + idval} >
+      <Card className="card__inner js-expander" {...rest} onClick={cardClick} id={idval}>
+        <CardContent style={{ paddingBottom: '16px' }}>
+          <div style={{ textAlign: "center" }}>
+            <img
+              src={product.imageSrc}
+              className="productCard-Image"
+              alt="sampleImage"
+            />
+          </div>
+          <Typography
+            align="center"
+            color="textPrimary"
+            gutterBottom
+            variant="h4"
+            style={{ paddingTop: "10px", color: "#1c4e80" }}
+          >
+            {product.title}
+          </Typography>
+        </CardContent>
 
-              variant="contained"
-              className="productCard-Btn"
-            >
-              {" "}
-              Add Images
-            </Button>
-          </Grid>
+
+
+        <Grid className={classes.statsItem} item>
+          <ImageIcon className={classes.statsIcon} />
+          <Typography
+            color="textSecondary"
+            display="inline"
+            variant="body2"
+            style={{ fontSize: "18px" }}
+          >
+            {product.totalImages} Images
+            </Typography>
         </Grid>
-      </Box>
-    </Card>
+        <Grid className={classes.statsItem} item style={{ paddingTop: "15px" }}>
+          <Typography
+            color="textSecondary"
+            display="inline"
+            variant="body2"
+            style={{ fontSize: "23px", color: "#1c4e80" }}
+          >
+            Add Images
+          </Typography>
+        </Grid>
+        <i class="fa fa-folder-o" style={{ margin: 'auto', fontSize: '30px', marginBottom: '10px' }}></i>
+
+
+      </Card>
+      <div class="card__expander">
+        <i class="fa fa-close js-collapser"></i>
+        Expander
+      </div>
+    </div>
   );
 };
 

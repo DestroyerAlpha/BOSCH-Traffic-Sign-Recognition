@@ -25,6 +25,10 @@
   font-size: 15px!important;
 
 }
+.card__inner {
+  display: flex !important;
+  flex-direction: column !important;
+}
 
 .cardcont {
   padding: 24px;
@@ -67,3 +71,5 @@
 .swal2-popup{
   left: 10% !important;
 }
+
+

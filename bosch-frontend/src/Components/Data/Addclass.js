@@ -57,7 +57,6 @@ const Addclass = ({ className, product, addClasson, ...rest }) => {
 
 Addclass.propTypes = {
     className: PropTypes.string,
-    product: PropTypes.object.isRequired,
 };
 
 export default Addclass;
