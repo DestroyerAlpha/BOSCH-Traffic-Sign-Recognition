@@ -17,6 +17,15 @@ class Data extends Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.addClasson = this.addClasson.bind(this);
     this.cardClick = this.cardClick.bind(this);
+    this.faclose = this.faclose.bind(this);
+  }
+  faclose = () => {
+    var cardset = document.querySelectorAll(".card");
+    cardset.forEach((value) => {
+      value.classList.remove("is-inactive");
+      value.classList.remove("is-expanded");
+      value.classList.add("is-collapsed")
+    })
   }
   cardClick = (event) => {
     event.preventDefault();
@@ -86,7 +95,7 @@ class Data extends Component {
         <Container maxWidth={false}>
           <Toolbars updateSearch={this.updateSearch} />
           <div className="cards">
-            {/* <Addclass addClasson={this.addClasson} /> */}
+            <Addclass addClasson={this.addClasson} />
             {
               searchSign.map((gg, i) => (
                 <ProductCard
@@ -95,6 +104,7 @@ class Data extends Component {
                   key={i}
                   idval={"cardid" + i}
                   cardClick={this.cardClick}
+                  faclose={this.faclose}
                 />
               ))}
           </div>

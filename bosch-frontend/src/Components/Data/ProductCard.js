@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = ({ className, product, idval, cardClick, ...rest }) => {
+const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -85,7 +85,7 @@ const ProductCard = ({ className, product, idval, cardClick, ...rest }) => {
 
       </Card>
       <div class="card__expander">
-        <i class="fa fa-close js-collapser"></i>
+        <i class="fa fa-close js-collapser" onClick={faclose}></i>
         Expander
       </div>
     </div>
