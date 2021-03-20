@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,20 @@ TEMPLATES = [
     },
 ]
 
+# Channels settings
+ASGI_APPLICATION = "boschBackend.asgi.application"
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": ['127.0.0.1', '6379'],
+#             # "symmetric_encryption_keys": [SECRET_KEY],
+#         },
+#     },
+# }
+
+
 WSGI_APPLICATION = 'boschBackend.wsgi.application'
 
 
@@ -76,7 +91,7 @@ WSGI_APPLICATION = 'boschBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -98,6 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
