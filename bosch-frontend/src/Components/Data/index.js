@@ -6,6 +6,7 @@ import ProductCard from "./ProductCard";
 import dat from "./dat";
 import Addclass from "./Addclass";
 import Swal from 'sweetalert2'
+import './stylecss.scss'
 
 class Data extends Component {
   constructor(props) {
@@ -15,6 +16,43 @@ class Data extends Component {
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.addClasson = this.addClasson.bind(this);
+    this.cardClick = this.cardClick.bind(this);
+    this.faclose = this.faclose.bind(this);
+  }
+  faclose = () => {
+    var cardset = document.querySelectorAll(".card");
+    cardset.forEach((value) => {
+      value.classList.remove("is-inactive");
+      value.classList.remove("is-expanded");
+      value.classList.add("is-collapsed")
+    })
+  }
+  cardClick = (event) => {
+    event.preventDefault();
+    var cardset = document.querySelectorAll(".card");
+    let id = event.currentTarget.id;
+    var clickedcard = document.getElementById("gg" + id);
+
+    if (clickedcard.classList.contains("is-expanded")) {
+      clickedcard.classList.remove("is-expanded");
+      clickedcard.classList.add("is-collapsed");
+      cardset.forEach((value) => {
+        value.classList.remove("is-inactive");
+      })
+    }
+    else {
+      cardset.forEach((value) => {
+        value.classList.add("is-inactive");
+        console.log(value.classList);
+      })
+      clickedcard.classList.remove("is-inactive");
+      clickedcard.classList.remove("is-collapsed");
+
+      clickedcard.classList.add("is-expanded");
+
+    }
+
+
 
   }
 
@@ -56,7 +94,7 @@ class Data extends Component {
       <div className="root">
         <Container maxWidth={false}>
           <Toolbars updateSearch={this.updateSearch} />
-          <div className="cardcont">
+          <div className="cards">
             <Addclass addClasson={this.addClasson} />
             {
               searchSign.map((gg, i) => (
@@ -64,6 +102,9 @@ class Data extends Component {
                   className="productCard"
                   product={gg}
                   key={i}
+                  idval={"cardid" + i}
+                  cardClick={this.cardClick}
+                  faclose={this.faclose}
                 />
               ))}
           </div>

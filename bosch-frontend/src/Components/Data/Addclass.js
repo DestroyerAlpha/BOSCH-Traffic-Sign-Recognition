@@ -37,27 +37,28 @@ const Addclass = ({ className, product, addClasson, ...rest }) => {
     const classes = useStyles();
 
     return (
-        <Card className={clsx(classes.root, className)} {...rest} onClick={addClasson}>
-            <CardContent stylr={{ paddingBottom: '16px' }}>
-                <div class="plus radius" style={{ textAlign: "center", marginTop: "30px" }}>
-                </div>
-                <Typography
-                    align="center"
-                    color="textPrimary"
-                    gutterBottom
-                    variant="h4"
-                    style={{ marginTop: "30px" }}
-                >
-                    Add Class
+        <div className="card">
+            <Card className="card__inner" {...rest} onClick={addClasson}>
+                <CardContent style={{ paddingBottom: '16px' }}>
+                    <div class="plus radius" style={{ textAlign: "center", marginTop: "30px" }}>
+                    </div>
+                    <Typography
+                        align="center"
+                        color="textPrimary"
+                        gutterBottom
+                        variant="h4"
+                        style={{ marginTop: "30px" }}
+                    >
+                        Add Class
                 </Typography>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </div>
     );
 };
 
 Addclass.propTypes = {
     className: PropTypes.string,
-    product: PropTypes.object.isRequired,
 };
 
 export default Addclass;
