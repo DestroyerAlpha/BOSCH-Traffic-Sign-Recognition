@@ -12,6 +12,11 @@ import json
 @api_view(["POST"])
 def trainModel(data):
     try:
+        epochs = int(data.POST.get("epochs"))
+        strides = int(data.POST.get("strides"))
+        padding = int(data.POST.get("padding"))
+        trainRatio = int(data.POST.get("training_percentage"))
+
         rtn = "testing"
         return JsonResponse(rtn,safe=False)
     except ValueError as e:
