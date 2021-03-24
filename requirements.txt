@@ -3,4 +3,5 @@ djangorestframework
 numpy
 imageio
 pillow
-glob3
+glob2
+channels
