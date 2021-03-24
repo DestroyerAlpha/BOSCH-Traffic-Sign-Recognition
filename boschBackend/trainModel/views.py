@@ -15,9 +15,20 @@ def trainModel(data):
         epochs = int(data.POST.get("epochs"))
         strides = int(data.POST.get("strides"))
         padding = int(data.POST.get("padding"))
-        trainRatio = int(data.POST.get("training_percentage"))
-
-        rtn = "testing"
+        trainRatio = float(data.POST.get("training_percent"))
+        testRatio = float(data.POST.get("testing_percent"))
+        poolingType = data.POST.get("pooling_type")
+        kernelSize = int(data.POST.get("kernel_size"))
+        depth = int(data.POST.get("depth"))
+        print('epochs : ',epochs)
+        print('strides : ',strides)
+        print('padding : ',padding)
+        print('trainRatio : ',trainRatio)
+        print('testRatio : ',testRatio)
+        print('poolingType : ',poolingType)
+        print('kernelSize : ',kernelSize)
+        print('depth : ',depth)
+        rtn = "OK"
         return JsonResponse(rtn,safe=False)
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
