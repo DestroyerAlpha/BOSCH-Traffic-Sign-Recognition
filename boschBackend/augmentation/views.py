@@ -15,20 +15,28 @@ from PIL import Image
 import imageio
 import glob
 
+def defaultSetter(a,b):
+    if a==None:
+        return b
+    return a
+
 @api_view(["POST"])
 def ImageAug(data):
     try:
         className = data.POST.get("class")
-        multiplier = data.POST.get("multiplier")
-        hflip = int(data.POST.get("hflip"))
-        vflip = int(data.POST.get("vflip"))
-        crop = float(data.POST.get("crop"))
-        blur = float(data.POST.get("blur"))
-        contrast = float(data.POST.get("contrast"))
-        scale = float(data.POST.get("scale"))
-        translate = float(data.POST.get("translate"))
-        rotate = float(data.POST.get("rotate"))
-        shear = float(data.POST.get("shear"))
+        if className==None:
+            rtn = "Please provide class"
+            return JsonResponse(rtn,safe=False)
+        multiplier = int(defaultSetter(data.POST.get("multiplier"),20))
+        hflip = int(defaultSetter(data.POST.get("hflip"),0))
+        vflip = int(defaultSetter(data.POST.get("vflip"),0))
+        crop = float(defaultSetter(data.POST.get("crop"),0.05))
+        blur = float(defaultSetter(data.POST.get("blur"),0.1))
+        contrast = float(defaultSetter(data.POST.get("contrast"),0))
+        scale = float(defaultSetter(data.POST.get("scale"),0.1))
+        translate = float(defaultSetter(data.POST.get("translate"),0.1))
+        rotate = float(defaultSetter(data.POST.get("rotate"),15))
+        shear = float(defaultSetter(data.POST.get("shear"),0))
         print("\nhflip",hflip)
         print("\nvflip",vflip)
         print("\ncrop",crop)
@@ -39,10 +47,6 @@ def ImageAug(data):
         print("\nrotate",rotate)
         print("\nshear",shear)
         
-        if(multiplier == None):
-            multiplier = 16
-        else:
-            multiplier = int(multiplier)
         
         #storage location 
         uploadedStorage = "Images/Uploaded/" + str(className) + "/"
@@ -54,8 +58,10 @@ def ImageAug(data):
         nameUploaded = int(num_of_files_uploaded) + 1
 
         # number of images already present
-        numImages = int(data.POST.get("numImages"))
-        
+        numImages = int(defaultSetter(data.POST.get("numImages"),0))
+        if numImages==0:
+            rtn = "Please provide number of Images"
+            return JsonResponse(rtn,safe=False)
         #augmentation
         ia.seed(1)
         seq = iaa.Sequential([
@@ -95,6 +101,9 @@ def ImageAug(data):
             for i in range(numImages):
                 print("image" + str(i))
                 image = data.FILES["image" + str(i)]
+                if image==None:
+                    rtn = "Please provide with the image"+ str(i) + " !"
+                    return JsonResponse(rtn,safe=False)
                 im = imageio.imread(image)
                 
                 imageio.imwrite(uploadedStorage + str(nameUploaded) + ".png",im)
