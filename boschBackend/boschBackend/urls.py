@@ -13,11 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from rest_framework import routers
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from augmentation import views
+from backend import views as backendviews
+
+trafficsignclassrouter = routers.DefaultRouter()
+trafficsignclassrouter.register(r'getClasses', backendviews.TrafficSignViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('addImages/',views.ImageAug),
+    path('addImages/', views.ImageAug),
+    path('', include(trafficsignclassrouter.urls)),
 ]
