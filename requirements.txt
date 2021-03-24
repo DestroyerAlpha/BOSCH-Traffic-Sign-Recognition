@@ -1,0 +1,5 @@
+imgaug
+djangorestframework
+numpy
+imageio
+pillow
