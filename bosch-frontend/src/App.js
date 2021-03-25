@@ -4,6 +4,8 @@ import NavBar from "./Components/NavBar";
 import TopBar from "./Components/TopBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Data from "./Components/Data"
+import CookModel from "./Components/Cook/CookModel"
+import Predict from "./Components/Predict/Predict"
 
 class App extends Component {
   constructor(props) {
@@ -30,8 +32,12 @@ class App extends Component {
                     <Route path="/data">
                       <Data />
                     </Route>
-                    <Route path="/cook">hello man</Route>
-                    <Route path="/predict">4</Route>
+                    <Route path="/cook">
+                      <CookModel />
+                    </Route>
+                    <Route path="/predict">
+                      <Predict />
+                    </Route>
                     <Route path="/dashboard">
                       1
                     </Route>

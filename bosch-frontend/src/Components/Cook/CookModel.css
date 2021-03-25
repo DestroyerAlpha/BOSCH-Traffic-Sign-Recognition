@@ -1,0 +1,99 @@
+
+.firstline{
+    display: grid;
+    grid-gap: 50px;
+    align-items: center;
+    grid-template-columns: 1fr  1fr;
+  
+    justify-items: center;
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .secondline{
+    display: grid;
+    grid-gap: 100px;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+    justify-items: center;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .thirdline{
+    display: grid;
+    grid-gap: 50px;
+    align-items: center;
+    grid-template-columns: 1fr  1fr;
+  
+    justify-items: center;
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .cerq {
+    height: 275px;
+    width: 275px;
+    cursor: pointer;
+    text-align: center;
+    background-color:#a5d8dd;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cerq:hover{
+    box-shadow: 0 7px 12px #1c4e80 !important;
+
+  }
+  .admtext{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1.5em;
+  }
+  .cerqtext{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1c4e80;
+    font-size: 1.7em;
+  }
+  .cerqadm {
+    display: grid;
+    height: 200px;
+    cursor: pointer;
+    align-items: center;
+    justify-items:center;
+    text-align: center;
+    width: 200px;
+    background-color: #1c4e80;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cerqadm:hover{
+    box-shadow: 0 7px 12px #808080 !important;
+
+  }
+  .adm{
+    min-height:90vh;
+  }
+
+  .infcard{
+    display:grid;
+    background-color: #e9d8ff;
+    grid-gap: 50px;
+    color: #752a87;
+    padding: 50px;
+    font-size: 1.7em;
+    grid-template-columns: 1fr;
+  }
+  .infcardchild{
+    border-radius: 30px;
+    min-height: 500px;
+    text-align: left;
+    padding: 25px;
+    background-color: #efbbcf;
+  }
