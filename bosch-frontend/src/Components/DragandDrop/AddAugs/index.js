@@ -73,7 +73,7 @@ class index extends Component {
       augmentationNumber: this.state.currentAugVal,
       var0: this.state.var0,
     };
-
+    console.log(aug)
     var augs = this.state.augJson;
     var displayAugs = this.state.augs;
 
@@ -310,20 +310,24 @@ class index extends Component {
   send = () => {
     let data = new FormData();
 
+    console.log("lol1");
     for (let i = 0; i < this.props.images.length; i++) {
+      console.log("this should work!");
+      console.log(this.props.images[i].name);
+      console.log( this.props.images[i]);
       data.append(this.props.images[i].name, this.props.images[i]);
     }
     data.append("augs", this.state.augJson);
     data.append("numImages", this.props.images.length);
 
     //this.props.close();
-    if (this.state.augJson.length !== 8) {
-      this.setState({ error: "Insert All the Augementations" });
-      setTimeout(this.clearError, 5000);
-      return 0;
-    }
+    // if (this.state.augJson.length !== 8) {
+    //   this.setState({ error: "Insert All the Augementations" });
+    //   setTimeout(this.clearError, 5000);
+    //   return 0;
+    // }
    
-    fetch("http://127.0.0.1:5000/", {
+    fetch("http://127.0.0.1:8000/addImages/", {
       method: "POST",
       body: data,
     }).then((res) => {
