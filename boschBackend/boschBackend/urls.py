@@ -25,6 +25,8 @@ trafficsignclassrouter.register(r'getClasses', backendviews.TrafficSignViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('addImages/', views.ImageAug),
+    path('trainModel/', backendviews.train),
+    path('predict/', backendviews.getPrediction),
     path('', include(trafficsignclassrouter.urls)),
     path('addClass', backendviews.addClasses),
 ]
