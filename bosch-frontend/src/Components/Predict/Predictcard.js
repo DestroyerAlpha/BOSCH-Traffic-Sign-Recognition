@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Predictcard = ({ className, product, idval, cardClick, faclose, ...rest }) => {
+const Predictcard = ({ className, product, predictImg, idval, cardClick, faclose, ...rest }) => {
   const classes = useStyles();
   const data = {
-    labels: ['1', '2', '3', '4'],
+    labels: Array.from({ length: product.epochs }, (_, i) => i + 1),
     datasets: [
       {
         label: '% Accuracy',
@@ -201,7 +201,7 @@ const Predictcard = ({ className, product, idval, cardClick, faclose, ...rest })
             </div>
             <div style={{ padding: '10px', marginTop: '10px' }}> Epoch vs Accuracy plot:</div>
             <Line data={data} options={options} />
-            <button className="btngg">Predict using this model</button>
+            <button className="btngg" onClick={predictImg}>Predict using this model</button>
           </div>
         </div>
       </div>

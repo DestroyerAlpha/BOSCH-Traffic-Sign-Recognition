@@ -178,41 +178,77 @@ class CookModel extends Component {
     }
 
     starttrain = () => {
-        Swal.mixin({
-
+        Swal.fire({
+            title: 'Final step: Choose training ratio',
             input: 'range',
+            icon: 'question',
+            inputLabel: 'Select a value between 0-100',
             inputAttributes: {
                 min: 0,
                 max: 100,
                 step: 0.1
             },
-            inputValue: 30,
-            confirmButtonText: 'Next &rarr;',
+            inputValue: 5,
             showCancelButton: true,
-            progressSteps: ['1', '2']
-        }).queue([
-            {
-                title: 'Final steps',
-                text: 'Choose percentage of images for training.'
+            preConfirm: (val) => {
+                var requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        epochs: this.state.epochs,
+                        depth: this.state.depth,
+                        training_percent: val,
+                        pooltype: this.state.pooltype,
+                        kernelsize: this.state.kernelsize,
+                        padding: this.state.padding,
+                        strides: this.state.strides
+                    })
+                };
+                return fetch(
+                    "http://localhost:8000/trainModel", requestOptions
+                )
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })
             },
-            {
-                title: 'Final steps',
-                text: 'Choose percentage of images for testing.'
-            },
-        ]).then((result) => {
-            if (result.value) {
-                const answers = JSON.stringify(result.value)
-                Swal.fire({
-                    title: 'All done!',
-                    html: `
-                  Your answers:
-                  <pre><code>${answers}</code></pre>
-                `,
-                    confirmButtonText: 'Lovely!'
-                })
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value.Status) {
+                    Swal.fire({
+                        title: `<strong>Training Initiated</strong>`,
+                        icon: 'success',
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Great!',
+                    })
+
+                }
+                else {
+                    Swal.fire({
+                        title: `<strong>Error</strong>`,
+                        icon: 'error',
+                        html:
+                            `<div style=text-align:start>` +
+                            `Something went wrong, try again` +
+                            '</div>'
+                    })
+                }
             }
         })
     }
+
+
 
 
 

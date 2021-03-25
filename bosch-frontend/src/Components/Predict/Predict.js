@@ -11,10 +11,12 @@ class Predict extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchString: ""
+            searchString: "",
+            isFetching: true,
+            users: []
         };
         this.updateSearch = this.updateSearch.bind(this);
-        this.addClasson = this.addClasson.bind(this);
+        this.predictImg = this.predictImg.bind(this);
         this.cardClick = this.cardClick.bind(this);
         this.faclose = this.faclose.bind(this);
     }
@@ -58,20 +60,79 @@ class Predict extends Component {
     updateSearch = (event) => {
         this.setState({ searchString: event.target.value });
     }
-    addClasson = () => {
+    predictImg = (model_id) => {
         Swal.fire({
-            title: 'Enter parameters to add a class',
+            title: 'Upload an image to predict',
             html:
-                'Class name: <input id="swal-input1" class="swal2-input">' +
                 'Class Image: <input id="swal-input2" type="file" accept="image/*" class="swal2-file" style="display: flex;" placeholder="">',
             focusConfirm: false,
             preConfirm: () => {
-                return [
-                    document.getElementById('swal-input1').value,
-                    document.getElementById('swal-input2').value
-                ]
+                var requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pred_img: document.getElementById('swal-input2').value
+                        , model_id: model_id
+                    })
+                };
+                return fetch(
+                    "http://localhost:8000/getPrediction", requestOptions
+                )
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value.Status) {
+                    Swal.fire({
+                        title: `<strong>Prediction:</strong>`,
+                        icon: 'success',
+                        html:
+                            `<div style=text-align:start>` +
+                            `The image belongs to class ${result.value.classname} <br/>` +
+                            '</div>' +
+                            `<img src=${result.value.classSrc}></img>`,
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Great!',
+                    })
+
+                }
+                else {
+                    Swal.fire({
+                        title: `<strong>Error</strong>`,
+                        icon: 'error',
+                        html:
+                            `<div style=text-align:start>` +
+                            `Something went wrong, try again` +
+                            '</div>'
+                    })
+                }
             }
         })
+    }
+    componentDidMount() {
+        fetch("http://localhost:8000/getModels")
+            .then(response => response.json())
+            .then(result => {
+                this.setState({ users: result, isFetching: false })
+            })
+            .catch(e => {
+                console.log(e);
+                this.setState({ ...this.state, isFetching: false });
+            });
     }
     /*
       componentDidMount() {
@@ -85,30 +146,35 @@ class Predict extends Component {
         };
       }*/
     render() {
-
-        const searchSign = dat.filter(robot => {
-            return String(robot.modelid).toLowerCase().includes(this.state.searchString.toLowerCase());
-        })
-        return (
-            <div className="root">
-                <Container maxWidth={false}>
-                    <Toolbars updateSearch={this.updateSearch} />
-                    <div className="cards">
-                        {
-                            searchSign.map((gg, i) => (
-                                <Predictcard
-                                    className="productCard"
-                                    product={gg}
-                                    key={i}
-                                    idval={"cardid" + i}
-                                    cardClick={this.cardClick}
-                                    faclose={this.faclose}
-                                />
-                            ))}
-                    </div>
-                </Container>
-            </div>
-        );
+        if (!(this.state.isFetching)) {
+            const searchSign = this.state.users.filter(robot => {
+                return String(robot.modelid).toLowerCase().includes(this.state.searchString.toLowerCase());
+            })
+            return (
+                <div className="root">
+                    <Container maxWidth={false}>
+                        <Toolbars updateSearch={this.updateSearch} />
+                        <div className="cards">
+                            {
+                                searchSign.map((gg, i) => (
+                                    <Predictcard
+                                        className="productCard"
+                                        product={gg}
+                                        key={i}
+                                        idval={"cardid" + i}
+                                        cardClick={this.cardClick}
+                                        faclose={this.faclose}
+                                        predictImg={this.predictImg}
+                                    />
+                                ))}
+                        </div>
+                    </Container>
+                </div>
+            );
+        }
+        else {
+            return <div></div>;
+        }
     }
 }
 
