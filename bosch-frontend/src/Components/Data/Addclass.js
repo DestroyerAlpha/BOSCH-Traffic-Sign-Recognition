@@ -40,7 +40,7 @@ const Addclass = ({ className, product, addClasson, ...rest }) => {
         <div className="card">
             <Card className="card__inner" {...rest} onClick={addClasson}>
                 <CardContent style={{ paddingBottom: '16px' }}>
-                    <div class="plus radius" style={{ textAlign: "center", marginTop: "30px" }}>
+                    <div className="plus radius" style={{ textAlign: "center", marginTop: "30px" }}>
                     </div>
                     <Typography
                         align="center"
