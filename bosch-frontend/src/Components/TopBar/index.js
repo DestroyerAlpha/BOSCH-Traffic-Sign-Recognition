@@ -37,7 +37,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
         <Link to="/dashboard">
           <img src={Logo} alt="logo" widht="50" height="50"></img>
         </Link>
-        <Typography color="#ffffff" variant="h5">
+        <Typography  variant="h5">
           Inter IIT Tech Meet 9.0
         </Typography>
         <Box flexGrow={1} />

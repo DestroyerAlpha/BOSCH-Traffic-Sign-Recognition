@@ -22,7 +22,8 @@ from trainModel import views as train_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('addImages/',aug_views.ImageAug),
+    path('addImages/', views.ImageAug),
+    path('trainModel/', backendviews.train),
     path('', include(trafficsignclassrouter.urls)),
     path('addClass', backendviews.addClasses),
     path('trainModel/',train_view.trainModel),
