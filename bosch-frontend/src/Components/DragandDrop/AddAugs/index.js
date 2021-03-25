@@ -308,35 +308,24 @@ class index extends Component {
     this.setState({ error: "" });
   };
   send = () => {
-    console.log("in send");
-    /*
     let data = new FormData();
 
-    data.append('name', 'ABC');
-    console.log(data);
     for (let i = 0; i < this.props.images.length; i++) {
       data.append(this.props.images[i].name, this.props.images[i]);
     }
     data.append("augs", this.state.augJson);
     data.append("numImages", this.props.images.length);
-    console.log(data);*/
+
     //this.props.close();
     if (this.state.augJson.length !== 8) {
       this.setState({ error: "Insert All the Augementations" });
       setTimeout(this.clearError, 5000);
       return 0;
     }
-
-    fetch("https://postman-echo.com/post", {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+   
+    fetch("http://127.0.0.1:5000/", {
       method: "POST",
-      body: JSON.stringify({
-        files: this.props.images,
-        fileNames: this.props.imageNames,
-        augs: this.state.augJson,
-      }),
+      body: data,
     }).then((res) => {
       console.log(res);
       this.props.close();
