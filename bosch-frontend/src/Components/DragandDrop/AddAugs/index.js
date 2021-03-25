@@ -19,7 +19,6 @@ class index extends Component {
       currentAugVal: 0,
       augJson: [],
       var0: 0,
-      var1: 0,
     };
   }
   deleteAug = (e) => {
@@ -53,7 +52,6 @@ class index extends Component {
     });
   };
   augChange = (e) => {
-    //console.log(e.target.value);
     this.setState({ currentAugVal: e.target.value });
   };
   changeVar0 = (e) => {
@@ -65,19 +63,10 @@ class index extends Component {
 
     this.setState({ var0: e.target.textContent });
   };
-  changeVar1 = (e) => {
-    if (this.state.currentAugVal === 6) {
-      if (e.target.checked) this.setState({ var1: 1 });
-      else this.setState({ var1: 0 });
-      return "1";
-    }
-    this.setState({ var1: e.target.textContent });
-  };
   addAug = () => {
     var aug = {
       augmentationNumber: this.state.currentAugVal,
       var0: this.state.var0,
-      var1: this.state.var1,
     };
 
     var augs = this.state.augJson;
@@ -105,8 +94,7 @@ class index extends Component {
       case 6:
         var display = "Flip "
           .concat(this.state.var0)
-          .concat(" ")
-          .concat(this.state.var1);
+          
         break;
       case 7:
         var display = "Linear Constrast ".concat(this.state.var0);
@@ -273,23 +261,14 @@ class index extends Component {
               <Row>
                 <Col>
                   <div className="augSelectTitle augSelectTitle_Check">
-                    Horizontal Flip
+                    Flip
                   </div>
                 </Col>
                 <Col>
                   <Checkbox onChange={this.changeVar0} className="augCheck" />
                 </Col>
               </Row>
-              <Row>
-                <Col>
-                  <div className="augSelectTitle augSelectTitle_Check">
-                    Vertical Flip
-                  </div>
-                </Col>
-                <Col>
-                  <Checkbox onChange={this.changeVar1} className="augCheck" />
-                </Col>
-              </Row>
+              
             </Container>
           </div>
         );
