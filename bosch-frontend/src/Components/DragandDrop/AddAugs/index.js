@@ -53,7 +53,7 @@ class index extends Component {
     });
   };
   augChange = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.setState({ currentAugVal: e.target.value });
   };
   changeVar0 = (e) => {
@@ -272,7 +272,9 @@ class index extends Component {
             <Container>
               <Row>
                 <Col>
-                  <div className="augSelectTitle augSelectTitle_Check">Horizontal Flip</div>
+                  <div className="augSelectTitle augSelectTitle_Check">
+                    Horizontal Flip
+                  </div>
                 </Col>
                 <Col>
                   <Checkbox onChange={this.changeVar0} className="augCheck" />
@@ -280,7 +282,9 @@ class index extends Component {
               </Row>
               <Row>
                 <Col>
-                  <div className="augSelectTitle augSelectTitle_Check">Vertical Flip</div>
+                  <div className="augSelectTitle augSelectTitle_Check">
+                    Vertical Flip
+                  </div>
                 </Col>
                 <Col>
                   <Checkbox onChange={this.changeVar1} className="augCheck" />
@@ -317,6 +321,42 @@ class index extends Component {
         return <div>You are no one.</div>;
     }
   };
+
+  send = () => {
+    console.log("in send");
+    /*
+    let data = new FormData();
+
+    data.append('name', 'ABC');
+    console.log(data);
+    for (let i = 0; i < this.props.images.length; i++) {
+      data.append(this.props.images[i].name, this.props.images[i]);
+    }
+    data.append("augs", this.state.augJson);
+    data.append("numImages", this.props.images.length);
+    console.log(data);*/
+    //this.props.close();
+
+
+    fetch(
+      "https://postman-echo.com/post",
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          'files':this.props.images,
+          'fileNames':this.props.imageNames,
+          'augs':this.state.augJson
+        }),
+      }
+    ).then((res) => {
+      console.log(res);
+      this.props.close();
+      return 1;
+    });
+  };
   render() {
     if (!this.state.showInsert)
       return (
@@ -334,7 +374,9 @@ class index extends Component {
                     INSERT
                   </Button>
                   <div className="AugBtnNext-parent">
-                    <Button className="AugBtn AugBtnNext">FINISH</Button>
+                    <Button className="AugBtn AugBtnNext" onClick={this.send}>
+                      FINISH
+                    </Button>
                   </div>
                 </div>
               </Col>

@@ -60,7 +60,7 @@ class index extends Component {
   uploadImages = () => {
     this.setState({ renderNo: 1 });
   };
-
+  
   render() {
     if (this.state.renderNo === 0)
       return (
@@ -104,7 +104,8 @@ class index extends Component {
 
                 <div
                   style={{
-                    width: "20%",
+                    width: "30%",
+                    fontSize:'14px',
                     display: this.state.fileNames.length
                       ? "inline-block"
                       : "none",
@@ -121,7 +122,9 @@ class index extends Component {
         </div>
       );
     else {
-      return <AddAugs />;
+      return (
+        <AddAugs images={this.state.files} imageNames={this.state.fileNames} close={this.props.close} />
+      );
     }
   }
 }
