@@ -17,17 +17,6 @@ class TrafficSignViewSet(viewsets.ModelViewSet):
     serializer_class = TrafficSignSignalSerializer
 
 
-@api_view(["GET"])
-def train(model_id):
-    # out=trainModel(model_id) 
-    
-    return JsonResponse(out,safe=False)
-
-@api_view(["GET"])
-def getPrediction(image_name):
-    # class_id=getPredict(data) 
-    
-    return JsonResponse(class_id,safe=False)
 
 @csrf_exempt
 def addClasses(request):
