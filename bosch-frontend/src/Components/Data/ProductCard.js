@@ -13,6 +13,9 @@ import {
 } from "@material-ui/core";
 import ImageIcon from "@material-ui/icons/Image";
 import "./Data.css";
+import Drag from "./../DragandDrop";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -80,13 +83,14 @@ const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest })
             Add Images
           </Typography>
         </Grid>
-        <i class="fa fa-folder-o" style={{ margin: 'auto', fontSize: '30px', marginBottom: '10px' }}></i>
+        <i className="fa fa-folder-o" style={{ margin: 'auto', fontSize: '30px', marginBottom: '10px' }}></i>
 
 
       </Card>
-      <div class="card__expander">
-        <i class="fa fa-close js-collapser" onClick={faclose}></i>
-        Expander
+      <div className="card__expander">
+      <Drag/>
+        <i className="fa fa-close js-collapser" onClick={faclose}></i>
+        
       </div>
     </div>
   );
