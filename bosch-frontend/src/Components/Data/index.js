@@ -19,6 +19,7 @@ class Data extends Component {
     this.cardClick = this.cardClick.bind(this);
     this.faclose = this.faclose.bind(this);
   }
+  
   faclose = () => {
     var cardset = document.querySelectorAll(".card");
     cardset.forEach((value) => {
@@ -43,7 +44,7 @@ class Data extends Component {
     else {
       cardset.forEach((value) => {
         value.classList.add("is-inactive");
-        console.log(value.classList);
+        
       })
       clickedcard.classList.remove("is-inactive");
       clickedcard.classList.remove("is-collapsed");

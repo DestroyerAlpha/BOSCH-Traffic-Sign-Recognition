@@ -15,35 +15,38 @@ from PIL import Image
 import imageio
 import glob
 
+def defaultSetter(a,b):
+    if a==None:
+        return b
+    return a
+
 @api_view(["POST"])
 def ImageAug(data):
     try:
-        className = data.POST.get("class")
-        multiplier = data.POST.get("multiplier")
-        hflip = int(data.POST.get("hflip"))
-        vflip = int(data.POST.get("vflip"))
-        crop = float(data.POST.get("crop"))
-        blur = float(data.POST.get("blur"))
-        contrast = float(data.POST.get("contrast"))
-        scale = float(data.POST.get("scale"))
-        translate = float(data.POST.get("translate"))
-        rotate = float(data.POST.get("rotate"))
-        shear = float(data.POST.get("shear"))
-        print("\nhflip",hflip)
-        print("\nvflip",vflip)
-        print("\ncrop",crop)
-        print("\nblur",blur)
-        print("\ncontrast",contrast)
-        print("\nscale",scale)
-        print("\ntranslate",translate)
-        print("\nrotate",rotate)
-        print("\nshear",shear)
+        print("\n\n\n")
+        Augs = data.POST.get("augs")
+        numImages = int(data.POST.get("numImages")) 
+        print(Augs,type(Augs))
+        print(numImages,type(numImages))
         
-        if(multiplier == None):
-            multiplier = 16
-        else:
-            multiplier = int(multiplier)
-        
+        # defaults
+        multiplier = int(defaultSetter(data.POST.get("multiplier"),20))
+        hflip = int(defaultSetter(data.POST.get("hflip"),0))
+        vflip = int(defaultSetter(data.POST.get("vflip"),0))
+        crop = float(defaultSetter(data.POST.get("crop"),0.05))
+        blur = float(defaultSetter(data.POST.get("blur"),0.1))
+        contrast = float(defaultSetter(data.POST.get("contrast"),0))
+        scale = float(defaultSetter(data.POST.get("scale"),0.1))
+        translate = float(defaultSetter(data.POST.get("translate"),0.1))
+        rotate = float(defaultSetter(data.POST.get("rotate"),15))
+        shear = float(defaultSetter(data.POST.get("shear"),0))
+
+        className = int(defaultSetter(data.POST.get("class"),1))
+        if className==None:
+            rtn = "Please provide class"
+            print(rtn)
+            return JsonResponse(rtn,safe=False)
+               
         #storage location 
         uploadedStorage = "Images/Uploaded/" + str(className) + "/"
         storageLoc_aug = "Images/Augmented/classBased/" +str(className) + "/"
@@ -53,9 +56,6 @@ def ImageAug(data):
         nameFile = int(num_of_files_aug) + 1
         nameUploaded = int(num_of_files_uploaded) + 1
 
-        # number of images already present
-        numImages = int(data.POST.get("numImages"))
-        
         #augmentation
         ia.seed(1)
         seq = iaa.Sequential([
@@ -92,9 +92,10 @@ def ImageAug(data):
         rtn_json = []
 
         try:
-            for i in range(numImages):
-                print("image" + str(i))
-                image = data.FILES["image" + str(i)]
+            print(data.FILES)
+            for imageName in data.FILES:
+                image = data.FILES[imageName]
+                print("Image : ",image)
                 im = imageio.imread(image)
                 
                 imageio.imwrite(uploadedStorage + str(nameUploaded) + ".png",im)
@@ -110,9 +111,11 @@ def ImageAug(data):
                     rtn_json.append({str(image):location})
                     nameFile += 1
                     num_of_files_aug += 1
-                rtn += "\n Successfully stored and augmented image " +str(i+1) + "th " + str(multiplier) + " number of times!"
+            rtn += "\n Successfully stored and augmented image " + imageName + "th " + str(multiplier) + " number of times!"
+            print(rtn)
         except:
-                rtn = "Error Happened!"        
+                rtn = "Error Happened!"
+                print(rtn)        
         return JsonResponse(rtn_json,safe=False)
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)

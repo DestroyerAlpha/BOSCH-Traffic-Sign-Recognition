@@ -28,4 +28,5 @@ urlpatterns = [
     path('trainModel/', backendviews.train),
     path('predict/', backendviews.getPrediction),
     path('', include(trafficsignclassrouter.urls)),
+    path('addClass', backendviews.addClasses),
 ]

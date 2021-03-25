@@ -34,6 +34,7 @@ class App extends Component {
                     <Route path="/predict">4</Route>
                     <Route path="/dashboard">
                       1
+                      d
                     </Route>
                   </Switch>
                 </div>

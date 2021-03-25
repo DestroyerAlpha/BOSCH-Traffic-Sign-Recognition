@@ -13,32 +13,46 @@ import {
 } from "@material-ui/core";
 import ImageIcon from "@material-ui/icons/Image";
 import "./Data.css";
+import Drag from "./../DragandDrop";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '270px',
-    height: '290px',
-    margin: 'auto'
+    width: "270px",
+    height: "290px",
+    margin: "auto",
   },
   statsItem: {
     alignItems: "center",
     display: "flex",
-    margin: 'auto'
+    margin: "auto",
   },
   statsIcon: {
     marginRight: theme.spacing(1),
-    color: "#ea6a67"
+    color: "#ea6a67",
   },
 }));
 
-const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest }) => {
+const ProductCard = ({
+  className,
+  product,
+  idval,
+  cardClick,
+  faclose,
+  ...rest
+}) => {
   const classes = useStyles();
 
   return (
-    <div className="card is-collapsed" id={"gg" + idval} >
-      <Card className="card__inner js-expander" {...rest} onClick={cardClick} id={idval}>
-        <CardContent style={{ paddingBottom: '16px' }}>
+    <div className="card is-collapsed" id={"gg" + idval}>
+      <Card
+        className="card__inner js-expander"
+        {...rest}
+        onClick={cardClick}
+        id={idval}
+      >
+        <CardContent style={{ paddingBottom: "16px" }}>
           <div style={{ textAlign: "center" }}>
             <img
               src={product.imageSrc}
@@ -57,8 +71,6 @@ const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest })
           </Typography>
         </CardContent>
 
-
-
         <Grid className={classes.statsItem} item>
           <ImageIcon className={classes.statsIcon} />
           <Typography
@@ -68,7 +80,7 @@ const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest })
             style={{ fontSize: "18px" }}
           >
             {product.totalImages} Images
-            </Typography>
+          </Typography>
         </Grid>
         <Grid className={classes.statsItem} item style={{ paddingTop: "15px" }}>
           <Typography
@@ -80,13 +92,14 @@ const ProductCard = ({ className, product, idval, cardClick, faclose, ...rest })
             Add Images
           </Typography>
         </Grid>
-        <i class="fa fa-folder-o" style={{ margin: 'auto', fontSize: '30px', marginBottom: '10px' }}></i>
-
-
+        <i
+          className="fa fa-folder-o"
+          style={{ margin: "auto", fontSize: "30px", marginBottom: "10px" }}
+        ></i>
       </Card>
-      <div class="card__expander">
-        <i class="fa fa-close js-collapser" onClick={faclose}></i>
-        Expander
+      <div className="card__expander">
+        <Drag close={faclose}/>
+        <i className="fa fa-close js-collapser" onClick={faclose}></i>
       </div>
     </div>
   );
