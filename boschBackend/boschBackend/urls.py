@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('addImages/',aug_views.ImageAug),
     path('trainModel/',train_view.trainModel),
+    path('getPrediction/', train_view.predict),
+    path('getModels/', train_view.getModels)
 ]
