@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('addImages/', views.ImageAug),
     path('', include(trafficsignclassrouter.urls)),
+    path('addClass', backendviews.addClasses),
 ]
