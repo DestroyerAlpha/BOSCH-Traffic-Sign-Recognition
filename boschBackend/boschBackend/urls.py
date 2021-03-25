@@ -15,18 +15,18 @@ Including another URLconf
 """
 from rest_framework import routers
 from django.contrib import admin
-from django.urls import path, include
-from augmentation import views
-from backend import views as backendviews
 
-trafficsignclassrouter = routers.DefaultRouter()
-trafficsignclassrouter.register(r'getClasses', backendviews.TrafficSignViewSet)
+from django.urls import path
+from augmentation import views as aug_views
+from trainModel import views as train_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('addImages/', views.ImageAug),
     path('trainModel/', backendviews.train),
-    path('predict/', backendviews.getPrediction),
     path('', include(trafficsignclassrouter.urls)),
     path('addClass', backendviews.addClasses),
+    path('trainModel/',train_view.trainModel),
+    path('getPrediction/', train_view.predict),
+    path('getModels/', train_view.getModels)
 ]
