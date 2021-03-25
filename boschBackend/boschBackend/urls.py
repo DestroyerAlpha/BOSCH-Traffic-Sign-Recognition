@@ -13,7 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from rest_framework import routers
 from django.contrib import admin
+
 from django.urls import path
 from augmentation import views as aug_views
 from trainModel import views as train_view
@@ -21,6 +23,8 @@ from trainModel import views as train_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('addImages/',aug_views.ImageAug),
+    path('', include(trafficsignclassrouter.urls)),
+    path('addClass', backendviews.addClasses),
     path('trainModel/',train_view.trainModel),
     path('getPrediction/', train_view.predict),
     path('getModels/', train_view.getModels)

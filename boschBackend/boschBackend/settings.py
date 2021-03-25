@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'channels',
     'augmentation',
     'trainModel',
+    'backend',
 ]
 
 MIDDLEWARE = [
