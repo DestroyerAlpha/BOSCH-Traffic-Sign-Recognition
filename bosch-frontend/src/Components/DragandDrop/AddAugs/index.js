@@ -19,6 +19,7 @@ class index extends Component {
       currentAugVal: 0,
       augJson: [],
       var0: 0,
+      error: "",
     };
   }
   deleteAug = (e) => {
@@ -26,7 +27,11 @@ class index extends Component {
     console.log(key);
     var arr = this.state.augs;
     var arr = arr.slice(0, key).concat(arr.slice(key + 1));
-    this.setState({ augs: arr });
+
+    var arrJs = this.state.augJson;
+    var arrJs = arrJs.slice(0, key).concat(arrJs.slice(key + 1));
+    console.log(arrJs);
+    this.setState({ augs: arr, augJson: arrJs });
   };
   listaugs = (item, key) => {
     return (
@@ -92,9 +97,8 @@ class index extends Component {
         var display = "Rotate ".concat(this.state.var0);
         break;
       case 6:
-        var display = "Flip "
-          .concat(this.state.var0)
-          
+        var display = "Flip ".concat(this.state.var0);
+
         break;
       case 7:
         var display = "Linear Constrast ".concat(this.state.var0);
@@ -104,6 +108,7 @@ class index extends Component {
         break;
     }
     displayAugs.push(display);
+    //augs[this.state.currentAugVal] = aug;
     augs.push(aug);
     this.setState({ augJson: augs, augs: displayAugs });
     this.switchInsert();
@@ -268,7 +273,6 @@ class index extends Component {
                   <Checkbox onChange={this.changeVar0} className="augCheck" />
                 </Col>
               </Row>
-              
             </Container>
           </div>
         );
@@ -300,7 +304,9 @@ class index extends Component {
         return <div>You are no one.</div>;
     }
   };
-
+  clearError = () => {
+    this.setState({ error: "" });
+  };
   send = () => {
     console.log("in send");
     /*
@@ -315,22 +321,23 @@ class index extends Component {
     data.append("numImages", this.props.images.length);
     console.log(data);*/
     //this.props.close();
+    if (this.state.augJson.length !== 8) {
+      this.setState({ error: "Insert All the Augementations" });
+      setTimeout(this.clearError, 5000);
+      return 0;
+    }
 
-
-    fetch(
-      "https://postman-echo.com/post",
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          'files':this.props.images,
-          'fileNames':this.props.imageNames,
-          'augs':this.state.augJson
-        }),
-      }
-    ).then((res) => {
+    fetch("https://postman-echo.com/post", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        files: this.props.images,
+        fileNames: this.props.imageNames,
+        augs: this.state.augJson,
+      }),
+    }).then((res) => {
       console.log(res);
       this.props.close();
       return 1;
@@ -352,6 +359,8 @@ class index extends Component {
                   <Button className="AugBtn" onClick={this.switchInsert}>
                     INSERT
                   </Button>
+                  <div className="error">{this.state.error}</div>
+
                   <div className="AugBtnNext-parent">
                     <Button className="AugBtn AugBtnNext" onClick={this.send}>
                       FINISH
@@ -392,7 +401,7 @@ class index extends Component {
                   <Button className="AugBtn" onClick={this.switchInsert}>
                     BACK
                   </Button>
-                  <div className="AugBtnNext-parent">
+                  <div className="AugBtnNext-parent-add">
                     <Button className="AugBtn AugBtnNext" onClick={this.addAug}>
                       ADD
                     </Button>
