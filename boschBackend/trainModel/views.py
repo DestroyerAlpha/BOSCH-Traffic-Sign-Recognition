@@ -13,10 +13,12 @@ from tensorflow.python.keras.applications import resnet
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Dense
 from keras.callbacks import ModelCheckpoint
+import cv2
 
 @api_view(["POST"])
-def trainModel(data):
+def trainModel(data, model_id):
     try:
+        path = './gtsrb/'
         epochs = int(data.POST.get("epochs"))
         strides = int(data.POST.get("strides"))
         padding = int(data.POST.get("padding"))
@@ -26,6 +28,9 @@ def trainModel(data):
         kernelSize = int(data.POST.get("kernel_size"))
         depth = int(data.POST.get("depth"))
 
+        f = open(path+ '/Model_params/' + str(model_id) + '.txt', 'w')
+        out_str = str(epochs) + ',' +  str(strides) + ',' +  str(padding) + ',' +  str(trainRatio) + ',' +  str(testRatio) + ',' +  str(poolingType) + ',' +  str(kernelSize) + ',' +  str(depth)
+        f.write(out_str)
         with tf.device("/gpu:0"):
             model = Sequential();
             model.add(resnet.ResNet50(include_top = False, pooling = 'avg', weights = 'imagenet'))
@@ -38,7 +43,6 @@ def trainModel(data):
 
 
             train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(validation_split = testRatio)
-            path = 'gtsrb/'
             train_generator = train_datagen.flow_from_directory(
             path+'Train',
             target_size=(150,150),
@@ -65,7 +69,8 @@ def trainModel(data):
             validation_data = validation_generator
             )
 
-            model.save(path+'/Models/NewModel')
+            model.save(path+'/Models/'+str(model_id)+ '.h5')
+
         # print('epochs : ',epochs)
         # print('strides : ',strides)
         # print('padding : ',padding)
@@ -78,3 +83,45 @@ def trainModel(data):
         return JsonResponse(rtn,safe=False)
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def predict(Model_id, Image_path):
+    model = tf.keras.load_model('./gtsrb/Models'+str(Model_id))
+    img = cv2.imread(Image_path)
+    img = np.array(img)
+    history = model.predict_classes(img)
+    return JsonResponse(history, safe = False)
+
+@api_view(['GET'])
+def getModels():
+    path = './gtsrb/'
+    model_dir = os.listdir(path + 'Models')
+    param_dir = os.listdir(path + 'Model_params')
+    res = {modelsArray : [] }
+    for model_name in model_dir:
+        f = open(path + 'Model_params' + model_name, 'r')
+        s = f.read;
+        vals = s.split(',')
+        temp = {  
+        modelid: model_name.
+        training_percent: vals[0],
+        validation_percent: ,
+        epochs: 5,
+        padding: 1,
+        depth: 50,
+        pooling_type: “none”,
+        kernel_size: 3,
+        stride:2,
+        training_status: “Completed”,
+        training_accuracy: 96.54,
+        Validation_accuracy: 93,
+        f1_score: 0.8,
+        precision: 0.7,
+        recall: 0.9,
+        epoch _accuracy:[0.46,0.94,0.95,0.96, 0.96]
+
+        }
+
+
+        
+
